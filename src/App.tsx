@@ -1,24 +1,19 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useAppDispatch, useAppSelector } from './hooks/redux';
+import { userSlice } from './store/reducers/UserSlice';
 
 function App() {
+  const { count } = useAppSelector((state) => state.userReducer);
+  const { increment } = userSlice.actions;
+  const dispatch = useAppDispatch();
+
+  console.log(increment(5));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>{count}</h1>
+      <button onClick={() => dispatch(increment(10))}>INCREMENT</button>
     </div>
   );
 }
